@@ -3,13 +3,13 @@ stack:
   name: headless-wp-vpc # Note: Update this with your stack name
   template:
     file: vpc.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: bmwccapsr-cf-stack-stack-artifacts
 
   #
   # Define stack input parameters.
   #
   parameters:
-    KeyPairName: 'bluefineng'
+    KeyPairName: 'headless-wp'
 
   #
   # Define stack capabilities required.

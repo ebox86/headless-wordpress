@@ -1,19 +1,19 @@
 version: 0.1
 stack:
-  name: headless-wp-ecs # Note: Update this with your stack name
+  name: headless-wp-ecs
   template:
     file: ecs.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: bmwccapsr-cf-stack-stack-artifacts
 
   #
   # Define stack input parameters.
   #
   parameters:
-    KeyPairName: 'bluefineng'
+    KeyPairName: 'headless-wp'
     VPCStack: 'headless-wp-vpc'
-    TLD: 'bluefineng.com'
-    Domain: 'cms.bluefineng.com'
-    SSL: 'arn:aws:acm:us-east-1:132093761664:certificate/7a872cf1-4845-46f5-9a05-6183bafad0c2'
+    TLD: 'bmwpugetsound.com'
+    Domain: 'cms.bmwpugetsound.com'
+    SSL: 'arn:aws:acm:us-west-2:992166107237:certificate/a69fbb3f-0d49-4a9b-b1ce-93012fd6d6af'
 
   #
   # Define stack capabilities required.

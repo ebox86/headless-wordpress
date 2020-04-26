@@ -1,12 +1,12 @@
 version: 0.1
 stack:
-  name: headless-wp-rds # Note: Update this with your stack name
+  name: headless-wp-rds
   template:
     file: rds.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: bmwccapsr-cf-stack-stack-artifacts
   policy:
     file: rds.policy.json
-    bucket: cim-stack-artifacts
+    bucket: bmwccapsr-cf-stack-stack-artifacts
   #
   # Define stack input parameters.
   #

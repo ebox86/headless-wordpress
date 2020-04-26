@@ -1,9 +1,9 @@
 version: 0.1
 stack:
-  name: headless-wp-ecr # Note: Update this with your stack name
+  name: headless-wp-ecr
   template:
     file: ecr.stack.yml
-    bucket: cim-stack-artifacts # Note: Update this with your bucket name.  Stacks are uploaded here prior to deployment.'
+    bucket: bmwccapsr-cf-stack-stack-artifacts
 
   #
   # Define stack input parameters.

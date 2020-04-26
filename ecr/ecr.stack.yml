@@ -19,7 +19,7 @@ Resources:
             Effect: Allow
             Principal:
               AWS:
-                - !Sub "arn:aws:iam::${AWS::AccountId}:user/randy.findley"
+                - !Sub "arn:aws:iam::${AWS::AccountId}:user/evan.kohout"
             Action:
               - "ecr:GetDownloadUrlForLayer"
               - "ecr:BatchGetImage"

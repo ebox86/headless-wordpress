@@ -107,7 +107,7 @@ Resources:
       Description: CloudFormation Sample Aurora Cluster Parameter Group
       Family: aurora5.6
       Parameters:
-        time_zone: US/Eastern
+        time_zone: US/Pacific
 
   RDSDBParameterGroup:
     Type: AWS::RDS::DBParameterGroup
