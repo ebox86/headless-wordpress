@@ -1,0 +1,36 @@
+{
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"extra": {
+		"wordpress-install-dir": "wordpress",
+		"installer-paths": {
+			"wordpress/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+			"wordpress/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+			"wordpress/wp-content/themes/{$name}/": ["type:wordpress-theme"]
+		}
+	},
+	"require": {
+		"wpackagist-plugin/amazon-s3-and-cloudfront": "^1.1",
+		"wpackagist-plugin/advanced-custom-fields": "^5.8.7",
+		"wpackagist-plugin/custom-post-type-ui": "^1.7.2",
+		"wp-graphql/wp-graphql": "0.8.3"
+	},
+	"scripts": {
+		"wordpress-setup-core-install-prompt": "wp core install --prompt",
+		"wordpress-setup-core-install": "wp core install --skip-email",
+		"wordpress-setup-clear-home": "wp option delete home || true",
+		"wordpress-setup-enable-plugins": "wp plugin activate amazon-s3-and-cloudfront advanced-custom-fields custom-post-type-ui wp-graphql",
+		"wordpress-setup": [
+			"@wordpress-setup-core-install-prompt",
+			"@wordpress-setup-finalize"
+		],
+		"wordpress-setup-finalize": [
+			"@wordpress-setup-clear-home",
+			"@wordpress-setup-enable-plugins"
+		]
+	}
+}

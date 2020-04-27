@@ -1,5 +1,11 @@
 FROM wordpress:latest
 
+# composer stuff - TBD
+#FROM composer:latest
+#COPY composer.json composer.json
+#RUN composer install
+
+
 # Install unzip
 RUN apt-get update; \
     apt-get install -y --no-install-recommends unzip

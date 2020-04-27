@@ -13,11 +13,11 @@ stack:
     ECSStack: 'headless-wp-ecs'
     RDSStack: 'headless-wp-rds'
     ECRStack: 'headless-wp-ecr'
-    Version: '1.0.0'
+    Version: '1.0.3'
     Path: '/*'
     TLD: 'bmwpugetsound.com'
     Domain: 'cdn.bmwpugetsound.com'
-    SSL: 'arn:aws:acm:us-west-2:992166107237:certificate/a69fbb3f-0d49-4a9b-b1ce-93012fd6d6af'
+    SSL: 'arn:aws:acm:us-east-1:992166107237:certificate/79ee90e2-8443-4a7f-8708-79828a05cb5a'
 
   #
   # Define stack capabilities required.
