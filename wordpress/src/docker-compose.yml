@@ -4,14 +4,19 @@ services:
 
   headless_wordpress:
     build: .
+    command: bash -c 'install_wordpress && apache2-foreground'
     #image: wordpress
     restart: always
+    env_file: ./.env
     ports:
-      - 8080:80
+      - 8080:8080
+    user: www-data
     environment:
       WORDPRESS_DB_PASSWORD: example
       WORDPRESS_ADDITIONAL_CONFIG: |
         define( 'AS3CF_AWS_USE_EC2_IAM_ROLE', true );
+    volumes:
+      - ../install_wordpress.sh:/usr/local/bin/install_wordpress
 
   mysql:
     image: mysql:5.7

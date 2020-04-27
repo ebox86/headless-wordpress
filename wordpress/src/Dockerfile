@@ -1,24 +1,35 @@
 FROM wordpress:latest
 
-# composer stuff - TBD
-#FROM composer:latest
-#COPY composer.json composer.json
-#RUN composer install
+RUN sed -i 's/80/8080/' /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf
 
-
-# Install unzip
+# install_wordpress.sh & misc. dependencies
 RUN apt-get update; \
-    apt-get install -y --no-install-recommends unzip
+	apt-get install -yq netcat sudo less git unzip
 
-# Install WP plugins
-RUN curl -L https://downloads.wordpress.org/plugin/amazon-s3-and-cloudfront.2.0.zip -o /tmp/amazon-s3-and-cloudfront.2.0.zip
-RUN unzip /tmp/amazon-s3-and-cloudfront.2.0.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/amazon-s3-and-cloudfront.2.0.zip
+# wp-cli
+RUN curl -sL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp; \
+	chmod +x wp; \
+	mv wp /usr/local/bin/; \
+	mkdir /var/www/.wp-cli; \
+	chown www-data:www-data /var/www/.wp-cli
 
-RUN curl -L https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip -o /tmp/advanced-custom-fields.5.7.7.zip
-RUN unzip /tmp/advanced-custom-fields.5.7.7.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/advanced-custom-fields.5.7.7.zip
+# composer
+RUN curl -sL https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | php; \
+	mv composer.phar /usr/local/bin/composer; \
+	mkdir /var/www/.composer; \
+	chown www-data:www-data /var/www/.composer
 
-RUN curl -L https://downloads.wordpress.org/plugin/custom-post-type-ui.1.5.8.zip -o /tmp/custom-post-type-ui.1.5.8.zip
-RUN unzip /tmp/custom-post-type-ui.1.5.8.zip -d /usr/src/wordpress/wp-content/plugins
-RUN rm /tmp/custom-post-type-ui.1.5.8.zip
+# phpunit, phpcs, wpcs
+RUN sudo -u www-data composer global require \
+	phpunit/phpunit \
+	dealerdirect/phpcodesniffer-composer-installer \
+	phpcompatibility/phpcompatibility-wp \
+	automattic/vipwpcs
+
+# ensure wordpress has write permission on linux host
+RUN chown -R www-data:www-data /var/www/html
+
+# include composer-installed executables in $PATH
+ENV PATH="/var/www/.composer/vendor/bin:${PATH}"
+
+EXPOSE 8080
