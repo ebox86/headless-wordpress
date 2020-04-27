@@ -129,7 +129,7 @@ Resources:
               OriginProtocolPolicy: 'http-only'
           -
             Id: 'wp-alb'
-            DomainName: 
+            DomainName:
                 Fn::ImportValue:
                   !Sub "${ECSStack}-LoadBalancerUrl"
             CustomOriginConfig:
@@ -232,7 +232,7 @@ Resources:
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
-    DependsOn: 
+    DependsOn:
       - CDN
       - MediaBucket
     Properties:
@@ -273,7 +273,7 @@ Resources:
                 Fn::ImportValue:
                   !Sub "${RDSStack}-DatabasePassword"
             - Name: WORDPRESS_CONFIG_EXTRA
-              Value: !Sub 
+              Value: !Sub
                 - |
                   define( 'AS3CF_AWS_USE_EC2_IAM_ROLE', true );
                   define( 'AS3CF_SETTINGS', serialize( array(
@@ -294,7 +294,7 @@ Resources:
                   DomainName: !If [UseCustomDomain, !Ref Domain, !GetAtt CDN.DomainName],
                   ForceHttps: !If [UseCustomDomain, 'true', 'false'],
                   CMSUrl: !If [UseCustomDomain, { "Fn::ImportValue" : {"Fn::Sub": "${ECSStack}-CustomDomainUrl" } }, {"Fn::Sub": ["http://${Url}", {"Url": { "Fn::ImportValue" : {"Fn::Sub": "${ECSStack}-LoadBalancerUrl" } }}]}]
-                  } 
+                  }
             - Name: WORDPRESS_DEBUG
               Value: '1'
 
@@ -313,7 +313,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
-      TargetGroupAttributes: 
+      TargetGroupAttributes:
         - Key: 'stickiness.enabled'
           Value: 'true'
         - Key: 'stickiness.type'
